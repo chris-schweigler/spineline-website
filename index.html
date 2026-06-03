@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpineLine – Ihr Partner der Wirbelsäulenchirurgie</title>
+<style>
+  :root {
+    --primary: #4a3800;
+    --primary-light: #6b5200;
+    --accent: #d3aa04;
+    --accent-light: #e8c82a;
+    --accent2: #be603e;
+    --text: #545656;
+    --text-dark: #2a2a2a;
+    --text-light: #6b7280;
+    --bg: #ffffff;
+    --bg-light: #faf8f0;
+    --bg-dark: #1a1200;
+    --border: #e8e0c8;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    box-shadow: 0 2px 12px rgba(26,58,92,0.07);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-logo-text { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); letter-spacing: -0.3px; }
+  .nav-logo-sub { font-size: 0.65rem; color: var(--text-light); font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-top: -3px; }
+
+  .nav-links { display: flex; gap: 2px; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-light);
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 0.9rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-dark); background: var(--bg-light); }
+  .nav-links a.active { color: var(--text-dark); font-weight: 600; }
+  .nav-links .btn-contact {
+    background: var(--accent); color: var(--text-dark);
+    padding: 9px 20px; border-radius: 8px;
+    margin-left: 8px; font-weight: 700;
+  }
+  .nav-links .btn-contact:hover { background: var(--accent2); color: white; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  /* Full-bleed background photo */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://spineline.at/wp-content/uploads/2022/02/AdobeStock_287815077-scaled.jpeg') center center / cover no-repeat;
+  }
+  /* Left dark panel overlay */
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg,
+      rgba(15,10,0,0.92) 0%,
+      rgba(20,14,0,0.85) 45%,
+      rgba(20,14,0,0.45) 70%,
+      rgba(0,0,0,0.1) 100%
+    );
+  }
+  /* Gold accent line on left edge */
+  .hero-bg::after {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 100%);
+  }
+  /* Content area */
+  .hero-content {
+    position: relative; z-index: 2;
+    flex: 1; display: flex; align-items: center;
+    padding: 130px 5% 60px;
+  }
+  .hero-grid {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 55% 45%; gap: 60px; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(211,170,4,0.18); border: 1px solid rgba(211,170,4,0.5);
+    color: var(--accent); font-size: 0.78rem; font-weight: 700;
+    padding: 7px 16px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 28px;
+  }
+  .hero-badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  .hero h1 {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-weight: 800; color: white;
+    line-height: 1.1; letter-spacing: -1px;
+    margin-bottom: 22px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.72);
+    margin-bottom: 40px; line-height: 1.8;
+    max-width: 480px;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+  .btn-primary {
+    background: var(--accent); color: #1a1200;
+    padding: 15px 30px; border-radius: 10px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.25s;
+    box-shadow: 0 4px 24px rgba(211,170,4,0.4);
+    border: 2px solid transparent;
+  }
+  .btn-primary:hover {
+    background: transparent; color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(211,170,4,0.15);
+  }
+  .btn-outline {
+    background: rgba(255,255,255,0.08); color: white;
+    padding: 15px 30px; border-radius: 10px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.25s;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(6px);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: white; }
+
+  /* Inline stats row */
+  .hero-stats-row {
+    display: flex; gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 28px;
+  }
+  .hero-stat-item {
+    flex: 1; padding-right: 28px; border-right: 1px solid rgba(255,255,255,0.1);
+    margin-right: 28px;
+  }
+  .hero-stat-item:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .hero-stat-num {
+    font-size: 2rem; font-weight: 800; color: var(--accent);
+    line-height: 1; font-variant-numeric: tabular-nums;
+  }
+  .hero-stat-desc { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.3; }
+
+  /* Right side visual */
+  .hero-visual { display: flex; justify-content: flex-end; align-items: center; }
+  .hero-card {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%; max-width: 340px;
+  }
+  .hero-card-title {
+    color: var(--accent); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 2px;
+    font-weight: 700; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-card-title::after {
+    content: ''; flex: 1; height: 1px; background: rgba(211,170,4,0.3);
+  }
+  .hero-stat { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-stat-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: rgba(211,170,4,0.12); border: 1px solid rgba(211,170,4,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-stat-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; }
+  .hero-stat-value { font-size: 1.3rem; font-weight: 800; color: white; line-height: 1; }
+  .hero-stat-label { font-size: 0.77rem; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+  /* TRUST BAR */
+  .trustbar {
+    background: var(--bg-light);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 5%;
+    display: flex; align-items: center; justify-content: center; gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trustbar-item { display: flex; align-items: center; gap: 10px; }
+  .trustbar-item svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; flex-shrink: 0; filter: drop-shadow(0 0 2px rgba(211,170,4,0.3)); }
+  .trustbar-item span { font-size: 0.85rem; font-weight: 500; color: var(--text-light); }
+
+  /* SECTIONS */
+  section { padding: 90px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 700; color: var(--text-dark);
+    letter-spacing: -0.3px; line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--text-light); max-width: 540px; line-height: 1.7;
+  }
+
+  /* ÜBER UNS */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    margin-top: 60px;
+  }
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-img-placeholder {
+    width: 100%; aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--border) 100%);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .about-img-placeholder img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 16px;
+  }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--accent); color: var(--text-dark);
+    border-radius: 14px; padding: 18px 22px;
+    box-shadow: 0 8px 30px rgba(211,170,4,0.35);
+  }
+  .about-badge-num { font-size: 2rem; font-weight: 800; line-height: 1; }
+  .about-badge-label { font-size: 0.75rem; opacity: 0.8; margin-top: 2px; }
+
+  .about-features { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .about-feature { display: flex; align-items: flex-start; gap: 14px; }
+  .about-feature-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--bg-light); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .about-feature-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; }
+  .about-feature-title { font-weight: 600; color: var(--text); font-size: 0.95rem; }
+  .about-feature-desc { font-size: 0.85rem; color: var(--text-light); margin-top: 2px; }
+
+  /* PRODUKTE */
+  .products-bg { background: var(--bg-light); }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: 48px;
+  }
+  .product-card {
+    background: white; border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 28px; transition: all 0.25s;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    border-color: var(--accent); transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,58,92,0.1);
+  }
+  .product-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: linear-gradient(135deg, #6b4e00 0%, var(--accent) 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .product-icon svg { width: 26px; height: 26px; stroke: white; fill: none; }
+  .product-title { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
+  .product-items { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .product-items li {
+    font-size: 0.85rem; color: var(--text-light);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .product-items li::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent-light); flex-shrink: 0;
+  }
+  .product-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 16px; font-size: 0.85rem; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .product-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; transition: transform 0.2s; }
+  .product-card:hover .product-link svg { transform: translateX(3px); }
+
+  /* PARTNER */
+  .partners-intro { max-width: 560px; }
+  .partners-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-top: 48px;
+  }
+  .partner-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px 16px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 90px; transition: all 0.2s;
+  }
+  .partner-card:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(46,139,192,0.12); }
+  .partner-card img { max-width: 130px; max-height: 50px; object-fit: contain; filter: grayscale(30%); transition: filter 0.2s; }
+  .partner-card:hover img { filter: grayscale(0%); }
+  .partner-name { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); }
+
+  /* TEAM / KONTAKT */
+  .contact-bg { background: #1a1200; }
+  .contact-header { text-align: center; margin-bottom: 60px; }
+  .contact-header .section-tag { color: var(--accent); }
+  .contact-header .section-title { color: white; }
+  .contact-header .section-sub { color: rgba(255,255,255,0.7); margin: 0 auto; }
+
+  .contact-top {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    margin-bottom: 60px;
+  }
+  .contact-info-card {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px; padding: 32px;
+  }
+  .contact-info-title { color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+  .contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+  .contact-info-item:last-child { margin-bottom: 0; }
+  .contact-info-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-info-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; }
+  .contact-info-label { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-bottom: 2px; }
+  .contact-info-value { font-size: 0.95rem; font-weight: 500; color: white; }
+  .contact-info-value a { color: white; text-decoration: none; }
+  .contact-info-value a:hover { color: var(--accent-light); }
+
+  .contact-form-card {
+    background: white; border-radius: 16px; padding: 32px;
+  }
+  .contact-form-title { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-light); margin-bottom: 6px; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 0.9rem; font-family: inherit; color: var(--text);
+    transition: border-color 0.2s; background: var(--bg-light);
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--accent); background: white;
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .btn-submit {
+    width: 100%; padding: 13px;
+    background: var(--accent); color: var(--text-dark);
+    border: none; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .btn-submit:hover { background: var(--accent2); color: white; }
+
+  .team-title { color: white; font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; text-align: center; }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;
+  }
+  .team-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 16px 10px; text-align: center;
+    transition: all 0.2s;
+  }
+  .team-card:hover { background: rgba(255,255,255,0.13); transform: translateY(-3px); }
+  .team-avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    margin: 0 auto 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: 700; color: rgba(255,255,255,0.8);
+    overflow: hidden;
+  }
+  .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .team-name { font-size: 0.8rem; font-weight: 600; color: white; line-height: 1.3; }
+  .team-role { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 3px; }
+  .team-phone { font-size: 0.7rem; color: var(--accent); margin-top: 4px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg-dark); color: rgba(255,255,255,0.7);
+    padding: 40px 5% 24px;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 24px;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo { font-size: 1.1rem; font-weight: 700; color: white; }
+  .footer-logo span { color: var(--accent); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom { max-width: 1200px; margin: 16px auto 0; font-size: 0.78rem; text-align: center; color: rgba(255,255,255,0.3); }
+
+  /* SCROLL ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid, .about-grid, .contact-top { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .hero-stats-row { gap: 0; }
+    .hero-content { padding: 120px 5% 50px; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .partners-grid { grid-template-columns: repeat(2, 1fr); }
+    .team-grid { grid-template-columns: repeat(3, 1fr); }
+    .about-badge { right: 10px; bottom: -10px; }
+  }
+  @media (max-width: 600px) {
+    .products-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+    .partners-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .trustbar { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <img src="https://spineline.at/wp-content/uploads/2022/01/spineline_logo.jpg" alt="SpineLine Logo">
+    </div>
+    <div>
+      <span class="nav-logo-text">SpineLine</span>
+      <span class="nav-logo-sub">Wirbelsäulenchirurgie</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#ueber-uns">Über uns</a>
+    <a href="#produkte">Produkte</a>
+    <a href="#partner">Partner</a>
+    <a href="#kontakt" class="btn-contact">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge">
+          <span></span>
+          Österreichischer Vertriebsspezialist · Salzburg
+        </div>
+        <h1>Ihr Partner der<br><em>Wirbelsäulenchirurgie</em></h1>
+        <p>Über 20 Jahre Erfahrung. Europäische Qualitätsimplantate aus Deutschland, Frankreich und Italien. Kompetente Begleitung – von der Planung bis in den OP-Saal.</p>
+        <div class="hero-cta">
+          <a href="#kontakt" class="btn-primary">Jetzt Kontakt aufnehmen</a>
+          <a href="#produkte" class="btn-outline">Produkte ansehen</a>
+        </div>
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">20+</div>
+            <div class="hero-stat-desc">Jahre operative Erfahrung</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">8</div>
+            <div class="hero-stat-desc">Herstellerpartner europaweit</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-desc">Europäische Implantate</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-title">Unsere Stärken</div>
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="hero-stat-value">EU-Qualität</div>
+              <div class="hero-stat-label">Nur europäische Implantate</div>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="hero-stat-value">Schnell</div>
+              <div class="hero-stat-label">Kurze Lieferzeiten aus Salzburg</div>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <div class="hero-stat-value">OP-Support</div>
+              <div class="hero-stat-label">Begleitung & Schulung vor Ort</div>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+            </div>
+            <div>
+              <div class="hero-stat-value">Planung</div>
+              <div class="hero-stat-label">Individuelle OP-Planung</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trustbar">
+  <div class="trustbar-item">
+    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span>Ausschließlich europäische Implantate</span>
+  </div>
+  <div class="trustbar-item">
+    <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span>Schnelle Lieferung & Verfügbarkeit</span>
+  </div>
+  <div class="trustbar-item">
+    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Hauptlager in Salzburg</span>
+  </div>
+  <div class="trustbar-item">
+    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>OP-Begleitung & Schulungen</span>
+  </div>
+</div>
+
+<!-- ÜBER UNS -->
+<section id="ueber-uns">
+  <div class="section-inner">
+    <div class="about-grid fade-in">
+      <div class="about-image-wrap">
+        <div class="about-img-placeholder">
+          <img src="https://spineline.at/wp-content/uploads/2022/04/Michi_andi_v2.jpg" alt="Andreas und Michaela Kendlbacher" onerror="this.style.display='none'">
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">20+</div>
+          <div class="about-badge-label">Jahre Expertise</div>
+        </div>
+      </div>
+      <div>
+        <span class="section-tag">Über uns</span>
+        <h2 class="section-title">Vertrauen, Verlässlichkeit,<br>Kompetenz und Erfahrung</h2>
+        <p class="section-sub">Wir sind ein österreichisches Unternehmen mit Sitz in Salzburg, spezialisiert auf den Vertrieb chirurgischer Wirbelsäulenprodukte.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div>
+              <div class="about-feature-title">Über 20 Jahre operative Erfahrung</div>
+              <div class="about-feature-desc">Gründer Andreas Kendlbacher bringt tiefes Wissen aus der Wirbelsäulenchirurgie direkt in den Vertrieb.</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <div class="about-feature-title">Ausschließlich europäische Implantate</div>
+              <div class="about-feature-desc">Hochwertige Produkte aus Deutschland, Frankreich und Italien – keine Kompromisse bei Qualität.</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div>
+              <div class="about-feature-title">OP-Begleitung & Operationsplanung</div>
+              <div class="about-feature-desc">Persönliche Betreuung des gesamten OP-Personals – vor, während und nach dem Eingriff.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUKTE -->
+<section id="produkte" class="products-bg">
+  <div class="section-inner">
+    <span class="section-tag">Produktportfolio</span>
+    <h2 class="section-title">Unser Sortiment</h2>
+    <p class="section-sub">Spezialisierte chirurgische Implantate und Systeme für alle Bereiche der Wirbelsäulenchirurgie.</p>
+    <div class="products-grid">
+
+      <div class="product-card fade-in">
+        <div class="product-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="8" y="2" width="8" height="4" rx="1"/><rect x="8" y="10" width="8" height="4" rx="1"/><rect x="8" y="18" width="8" height="4" rx="1"/><line x1="12" y1="6" x2="12" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/></svg>
+        </div>
+        <div class="product-title">Zervikal</div>
+        <ul class="product-items">
+          <li>Zervikales Plattensystem</li>
+          <li>Stab/Schraubsystem</li>
+          <li>Zervikale Cages</li>
+          <li>Wirbelkörperersatz</li>
+        </ul>
+        <a href="https://spineline.at/zervikal/" class="product-link" target="_blank">
+          Produktbroschüren
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 2v20M8 6c0 0 4-2 8 0M8 12c0 0 4-2 8 0M8 18c0 0 4-2 8 0"/></svg>
+        </div>
+        <div class="product-title">Thorakolumbal</div>
+        <ul class="product-items">
+          <li>Stab/Schraubsysteme</li>
+          <li>Dynamische Stabilisierung</li>
+          <li>Wirbelkörperersatz</li>
+        </ul>
+        <a href="https://spineline.at/thorakolumbal/" class="product-link" target="_blank">
+          Produktbroschüren
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="7" y="6" width="10" height="12" rx="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+        </div>
+        <div class="product-title">Lumbale Cages</div>
+        <ul class="product-items">
+          <li>PLIF</li>
+          <li>TLIF</li>
+          <li>LLIF</li>
+          <li>ALIF</li>
+        </ul>
+        <a href="https://spineline.at/lumbale-cages/" class="product-link" target="_blank">
+          Produktbroschüren
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="product-title">PediGuard</div>
+        <ul class="product-items">
+          <li>Navigation in Ihrer Hand</li>
+          <li>DSG™-Technologie</li>
+          <li>Echtzeit-Feedback</li>
+        </ul>
+        <a href="https://spineline.at/pediguard-spineline/" class="product-link" target="_blank">
+          Produktbroschüren
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22V12m0-10v10M6 12H2m20 0h-4M6.34 17.66L4.22 19.78M19.78 4.22l-2.12 2.12M17.66 17.66l2.12 2.12M4.22 4.22l2.12 2.12"/></svg>
+        </div>
+        <div class="product-title">Universal</div>
+        <ul class="product-items">
+          <li>Kyphoplastie</li>
+          <li>Vertebroplastie</li>
+          <li>Zement & Knochenersatz</li>
+          <li>Redonspieße</li>
+        </ul>
+        <a href="https://spineline.at/universal/" class="product-link" target="_blank">
+          Produktbroschüren
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="product-card fade-in" style="border: 1.5px dashed var(--border); background: var(--bg-light);">
+        <div class="product-icon" style="background: var(--bg-light); border: 1.5px solid var(--border);">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" style="stroke: var(--text-light);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <div class="product-title" style="color: var(--text-light);">Weitere Produkte</div>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 8px;">Kontaktieren Sie uns für spezifische Anfragen zu weiteren Produkten und Sonderlösungen.</p>
+        <a href="#kontakt" class="product-link">
+          Anfrage stellen
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER -->
+<section id="partner">
+  <div class="section-inner">
+    <div class="partners-intro fade-in">
+      <span class="section-tag">Unsere Partner</span>
+      <h2 class="section-title">Führende Hersteller,<br>vereint bei SpineLine</h2>
+      <p class="section-sub">Wir arbeiten ausschließlich mit renommierten europäischen Herstellern zusammen, um höchste Qualität zu gewährleisten.</p>
+    </div>
+    <div class="partners-grid fade-in">
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2025/04/CHM.png" alt="ChM" onerror="this.outerHTML='<span class=\'partner-name\'>ChM</span>'">
+      </div>
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2022/02/Logo_G21.jpg" alt="G21" onerror="this.outerHTML='<span class=\'partner-name\'>G21</span>'">
+      </div>
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2025/01/1-NORA-LogoQuadri-1.2-PDF.png" alt="NORAKER" onerror="this.outerHTML='<span class=\'partner-name\'>NORAKER</span>'">
+      </div>
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2025/01/normmed-logo-vektoerel2.png" alt="normmed" onerror="this.outerHTML='<span class=\'partner-name\'>normmed</span>'">
+      </div>
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2022/02/Logo_NovaSpine.jpg" alt="NovaSpine" onerror="this.outerHTML='<span class=\'partner-name\'>NovaSpine</span>'">
+      </div>
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2024/02/SpineGuard.png" alt="SpineGuard" onerror="this.outerHTML='<span class=\'partner-name\'>SpineGuard</span>'">
+      </div>
+      <div class="partner-card">
+        <img src="https://spineline.at/wp-content/uploads/2023/02/Logo-ulrich-medical.jpg" alt="ulrich medical" onerror="this.outerHTML='<span class=\'partner-name\'>ulrich medical</span>'">
+      </div>
+      <div class="partner-card" style="border: 1.5px dashed var(--border); background: var(--bg-light);">
+        <span class="partner-name" style="color: var(--text-light); font-size: 0.8rem;">+ weitere Partner</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt" class="contact-bg">
+  <div class="section-inner">
+    <div class="contact-header">
+      <span class="section-tag">Kontakt</span>
+      <h2 class="section-title">So können Sie uns erreichen</h2>
+      <p class="section-sub">Wir freuen uns auf Ihre Anfrage – telefonisch, per E-Mail oder direkt über unser Kontaktformular.</p>
+    </div>
+
+    <div class="contact-top fade-in">
+      <div class="contact-info-card">
+        <div class="contact-info-title">Kontaktinformationen</div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Telefon</div>
+            <div class="contact-info-value"><a href="tel:+43662203204">+43 662 203 204</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">E-Mail</div>
+            <div class="contact-info-value"><a href="mailto:office@spineline.at">office@spineline.at</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Adresse</div>
+            <div class="contact-info-value">Bachstraße 9, 5023 Salzburg</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Bürozeiten</div>
+            <div class="contact-info-value">Mo – Fr, 09:00 – 17:00 Uhr</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <div class="contact-form-title">Nachricht senden</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" placeholder="Max">
+          </div>
+          <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" placeholder="Mustermann">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-Mail</label>
+          <input type="email" placeholder="max@klinik.at">
+        </div>
+        <div class="form-group">
+          <label>Betreff</label>
+          <input type="text" placeholder="Produktanfrage / OP-Begleitung">
+        </div>
+        <div class="form-group">
+          <label>Nachricht</label>
+          <textarea placeholder="Ihre Nachricht..."></textarea>
+        </div>
+        <button class="btn-submit">Nachricht senden</button>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="fade-in">
+      <div class="team-title">Unser Team</div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://spineline.at/wp-content/uploads/2022/04/Andi-1.jpg" alt="Andreas Kendlbacher" onerror="this.outerHTML='AK'">
+          </div>
+          <div class="team-name">Andreas Kendlbacher</div>
+          <div class="team-role">Geschäftsführer</div>
+          <div class="team-phone">+43 664 400 65 31</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://spineline.at/wp-content/uploads/2022/04/Michi_2.jpg" alt="Michaela Kendlbacher" onerror="this.outerHTML='MK'">
+          </div>
+          <div class="team-name">Mag. (FH) Michaela Kendlbacher</div>
+          <div class="team-role">Office Management</div>
+          <div class="team-phone">+43 662 203 204-10</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://spineline.at/wp-content/uploads/2025/08/IMG_0481-e1756493490966.jpg" alt="Andrea Leidinger" onerror="this.outerHTML='AL'">
+          </div>
+          <div class="team-name">Andrea Leidinger</div>
+          <div class="team-role">Produktspezialistin OP Support</div>
+          <div class="team-phone">+43 664 347 86 65</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://spineline.at/wp-content/uploads/2023/11/Foto-D.-Vukoman.jpg" alt="Dragica Vukoman" onerror="this.outerHTML='DV'">
+          </div>
+          <div class="team-name">Dragica Vukoman</div>
+          <div class="team-role">Produktspezialistin OP Support</div>
+          <div class="team-phone">+43 664 123 64 81</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://spineline.at/wp-content/uploads/2023/11/Foto-A.-Jazbinsek.jpg" alt="Alex Jazbinsek" onerror="this.outerHTML='AJ'">
+          </div>
+          <div class="team-name">Alex Jazbinsek</div>
+          <div class="team-role">Office</div>
+          <div class="team-phone">+43 662 203 204-11</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://spineline.at/wp-content/uploads/2025/09/Dusan-Spasic-011-scaled.jpeg" alt="Dušan Spasić" onerror="this.outerHTML='DŠ'">
+          </div>
+          <div class="team-name">Dušan Spasić</div>
+          <div class="team-role">Office</div>
+          <div class="team-phone">+43 664 203 204-12</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Spine<span>Line</span> &nbsp;·&nbsp; <span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.4);">Wirbelsäulenchirurgie</span></div>
+    <div class="footer-links">
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#produkte">Produkte</a>
+      <a href="#partner">Partner</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="https://spineline.at/impressum/" target="_blank">Impressum</a>
+      <a href="https://spineline.at/datenschutzerklaerung/" target="_blank">Datenschutz</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2024 SpineLine – Andreas Kendlbacher · Bachstraße 9, 5023 Salzburg, Österreich</div>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
