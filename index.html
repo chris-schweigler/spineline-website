@@ -138,7 +138,7 @@
     color: var(--accent); font-size: 0.78rem; font-weight: 700;
     padding: 7px 16px; border-radius: 20px;
     text-transform: uppercase; letter-spacing: 1.5px;
-    margin-bottom: 28px; white-space: nowrap;
+    margin-bottom: 28px;
   }
   .hero-badge span:first-child { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
   .hero h1 {
@@ -456,8 +456,14 @@
   .team-role { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin: 0 0 5px; }
   .team-phone { font-size: 0.72rem; color: var(--accent); margin: 0; }
   .team-email { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  @media (max-width: 900px) { .team-group-3 { grid-template-columns: repeat(2,1fr); } .team-group-4 { grid-template-columns: repeat(2,1fr); } .team-group-1 { max-width: 260px; } }
-  @media (max-width: 600px) { .team-group-3, .team-group-4 { grid-template-columns: repeat(2,1fr); } .team-group-1 { max-width: 220px; } }
+
+  /* FOOTER MAIN GRID */
+  .footer-main {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
 
   /* FOOTER */
   footer {
@@ -489,16 +495,22 @@
     .hero-content { padding: 120px 5% 50px; }
     .products-grid { grid-template-columns: 1fr 1fr; }
     .partners-grid { grid-template-columns: repeat(2, 1fr); }
-    .team-grid { grid-template-columns: repeat(3, 1fr); }
     .about-badge { right: 10px; bottom: -10px; }
+    .team-group-3 { grid-template-columns: repeat(2, 1fr); }
+    .team-group-4 { grid-template-columns: repeat(2, 1fr); }
+    .team-group-1 { max-width: 260px; }
+    .section-inner { padding: 60px 5%; }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .nav-links { display: none; }
     .nav-burger { display: flex; }
-    .products-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+    .footer-main { grid-template-columns: 1fr 1fr; gap: 24px; }
+  }
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: 1fr 1fr; }
     .partners-grid { grid-template-columns: 1fr 1fr; }
     .form-row { grid-template-columns: 1fr; }
-    .trustbar { gap: 20px; }
+    .trustbar { gap: 20px; flex-wrap: wrap; }
     .hero-content { padding: 100px 5% 40px; }
     .hero h1 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
     .hero-stats-row { flex-wrap: wrap; }
@@ -506,9 +518,18 @@
     .hero-cta { flex-direction: column; }
     .hero-cta a { text-align: center; }
     .section-title { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+    .hero-badge { font-size: 0.72rem; letter-spacing: 1px; }
+    .team-card-new > img, .team-card-fallback { height: 200px; }
+    .team-group-gf .team-card-new > img { height: 260px; }
+    .about-badge { position: static; margin: 16px auto 0; display: table; transform: none; right: auto; bottom: auto; }
+    .section-inner { padding: 48px 5%; }
+    .team-group-1 { max-width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .footer-main { grid-template-columns: 1fr; }
+    .hero-stat-item { flex: 0 0 100%; }
   }
   @media (max-width: 420px) {
-    .hero-stat-item { flex: 0 0 100%; }
     .products-grid { grid-template-columns: 1fr; }
   }
 
@@ -1037,7 +1058,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-main" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);">
+  <div class="footer-main">
     <div>
       <div style="font-size:1.2rem;font-weight:800;color:white;margin-bottom:12px;">Spine<span style="color:var(--accent);">Line</span></div>
       <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;max-width:260px;"><span data-i18n="index.footer.blurb">Ihr spezialisierter Partner für chirurgische Wirbelsäulenprodukte in Österreich. Europäische Qualität – persönliche Betreuung.</span></p>

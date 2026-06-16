@@ -83,7 +83,21 @@
   .footer-links a:hover { color: white; }
   .footer-bottom { max-width: 1200px; margin: 14px auto 0; font-size: 0.75rem; text-align: center; color: rgba(255,255,255,0.3); }
 
-  @media (max-width: 700px) { .nav-links { display: none; } }
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+    .page-hero { padding: 90px 5% 44px; }
+    .products-section { padding: 48px 5%; }
+  }
+  @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .back-links { flex-direction: column; align-items: stretch; }
+    .btn-back { justify-content: center; }
+    .footer-main { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+  }
+  @media (max-width: 420px) { .products-grid { grid-template-columns: 1fr; } }
   .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
 </style>
