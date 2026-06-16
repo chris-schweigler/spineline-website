@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumbale Cages – SpineLine</title>
+<style>
+  :root {
+    --accent: #d3aa04; --accent2: #be603e;
+    --text: #545656; --text-dark: #2a2a2a; --text-light: #6b7280;
+    --bg: #ffffff; --bg-light: #faf8f0; --border: #e8e0c8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 12px rgba(26,58,92,0.07); }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .nav-logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-logo-text { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
+  .nav-logo-sub { font-size: 0.65rem; color: var(--text-light); text-transform: uppercase; display: block; margin-top: -3px; letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 2px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--text-light); padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+  .nav-links a:hover { color: var(--text-dark); background: var(--bg-light); }
+  .nav-links .btn-contact { background: var(--accent); color: var(--text-dark); padding: 9px 20px; border-radius: 8px; margin-left: 8px; font-weight: 700; }
+  .nav-links .btn-contact:hover { background: var(--accent2); color: white; }
+
+  .page-hero { margin-top: 72px; background: linear-gradient(100deg, #1a1200 0%, #3d2e00 60%, #6b4e00 100%); padding: 60px 5%; position: relative; overflow: hidden; }
+  .page-hero::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 100%); }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb-sep { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+  .breadcrumb-current { color: var(--accent); font-size: 0.82rem; font-weight: 600; }
+  .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 12px; }
+  .page-hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-hero p { color: rgba(255,255,255,0.65); font-size: 1rem; max-width: 560px; }
+  .category-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+  .category-tag { background: rgba(211,170,4,0.15); border: 1px solid rgba(211,170,4,0.35); color: var(--accent); font-size: 0.75rem; font-weight: 600; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .products-section { padding: 70px 5%; }
+  .products-inner { max-width: 1200px; margin: 0 auto; }
+  .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+  .product-card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.25s; display: flex; flex-direction: column; }
+  .product-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 16px 48px rgba(211,170,4,0.12); }
+  .product-img { background: var(--bg-light); height: 200px; display: flex; align-items: center; justify-content: center; padding: 24px; border-bottom: 1px solid var(--border); }
+  .product-img img { max-width: 100%; max-height: 150px; object-fit: contain; transition: transform 0.3s; }
+  .product-card:hover .product-img img { transform: scale(1.05); }
+  .product-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .product-name { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+  .product-type { font-size: 0.82rem; color: var(--text-light); margin-bottom: 16px; flex: 1; }
+  .product-link { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--text-dark); padding: 10px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: all 0.2s; width: 100%; justify-content: center; }
+  .product-link:hover { background: var(--accent2); color: white; }
+  .product-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+  .back-section { background: var(--bg-light); border-top: 1px solid var(--border); padding: 50px 5%; text-align: center; }
+  .back-section h2 { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .back-section p { color: var(--text-light); margin-bottom: 24px; }
+  .back-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; }
+  .btn-back-primary { background: var(--accent); color: var(--text-dark); }
+  .btn-back-primary:hover { background: var(--accent2); color: white; }
+  .btn-back-outline { background: transparent; color: var(--text-dark); border: 1.5px solid var(--border); }
+  .btn-back-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+
+  footer { background: #1a1200; color: rgba(255,255,255,0.7); padding: 32px 5%; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: white; }
+  .footer-logo span { color: var(--accent); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom { max-width: 1200px; margin: 14px auto 0; font-size: 0.75rem; text-align: center; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .nav-links { display: none; } }
+  @media (max-width: 700px) { .footer-main { grid-template-columns: 1fr 1fr !important; } }
+  @media (max-width: 420px) { .products-grid { grid-template-columns: 1fr; } }
+  .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+<script src="i18n.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark"><img src="logo.jpg" alt="SpineLine Logo"></div>
+    <div>
+      <span class="nav-logo-text">SpineLine</span>
+      <span class="nav-logo-sub" data-i18n="nav.sub">Wirbelsäulenchirurgie</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#ueber-uns" data-i18n="nav.about">Über uns</a>
+    <a href="index.html#produkte" data-i18n="nav.products">Produkte</a>
+    <a href="index.html#partner" data-i18n="nav.partners">Partner</a>
+    <a href="index.html#kontakt" class="btn-contact" data-i18n="nav.contact">Kontakt</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html" data-i18n="bc.home">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="index.html#produkte" data-i18n="bc.products">Produkte</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current" data-i18n="cages.bc">Lumbale Cages</span>
+    </div>
+    <h1 data-i18n-html="cages.h1">Lumbale <em>Cages</em></h1>
+    <p data-i18n="cages.desc">Lumbale Cage-Systeme für alle gängigen Zugangswege – PLIF, TLIF, LLIF und ALIF. Europäische Qualität für optimale Fusion.</p>
+    <div class="category-tags">
+      <span class="category-tag" data-i18n="cages.tag1">PLIF</span>
+      <span class="category-tag" data-i18n="cages.tag2">TLIF</span>
+      <span class="category-tag" data-i18n="cages.tag3">LLIF</span>
+      <span class="category-tag" data-i18n="cages.tag4">ALIF</span>
+      <span class="category-tag" data-i18n="cages.tag5">Oblique</span>
+    </div>
+  </div>
+</div>
+
+<section class="products-section">
+  <div class="products-inner">
+    <div class="products-grid">
+
+      <div class="product-card fade-in">
+        <div class="product-img"><img src="product-cage-plif.jpg" alt="Diva PLIF"></div>
+        <div class="product-body">
+          <div class="product-name">Diva</div>
+          <div class="product-type">PLIF</div>
+          <a href="https://spineline.at/wp-content/uploads/2022/02/Brochure-NS-DIVA3D-L-Ind-A-2019.pdf" target="_blank" class="product-link">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span data-i18n="product.brochure">Produktbroschüre</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-img"><img src="product-cage-tlif.jpg" alt="Diva TLIF"></div>
+        <div class="product-body">
+          <div class="product-name">Diva</div>
+          <div class="product-type">TLIF</div>
+          <a href="https://spineline.at/wp-content/uploads/2022/02/Brochure-NS-DIVA-TLIFP-Ind-B-2019.pdf" target="_blank" class="product-link">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span data-i18n="product.brochure">Produktbroschüre</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-img"><img src="product-cage-twist.png" alt="Diva Twist Oblique Cage"></div>
+        <div class="product-body">
+          <div class="product-name">Diva Twist</div>
+          <div class="product-type">Oblique Cage</div>
+          <a href="https://spineline.at/wp-content/uploads/2022/02/Brochure-NS-DIVA-Twist-Ind-D-2019.pdf" target="_blank" class="product-link">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span data-i18n="product.brochure">Produktbroschüre</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-img"><img src="product-cage-alif.png" alt="Diva Queen ALIF"></div>
+        <div class="product-body">
+          <div class="product-name">Diva Queen</div>
+          <div class="product-type">ALIF</div>
+          <a href="https://spineline.at/wp-content/uploads/2025/04/Brochure-NS-DIVA-Queen-Ind-D-2022.pdf" target="_blank" class="product-link">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span data-i18n="product.brochure">Produktbroschüre</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-img"><img src="product-cage-llif.png" alt="Diva LLIF"></div>
+        <div class="product-body">
+          <div class="product-name">Diva</div>
+          <div class="product-type">LLIF</div>
+          <a href="https://spineline.at/wp-content/uploads/2025/04/Brochure-NS-DIVA-LLIF-B-Ind-B-2022.pdf" target="_blank" class="product-link">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span data-i18n="product.brochure">Produktbroschüre</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="back-section">
+  <h2 data-i18n="back.title">Weitere Produktkategorien</h2>
+  <p data-i18n="back.sub">Entdecken Sie unser gesamtes Portfolio für die Wirbelsäulenchirurgie.</p>
+  <div class="back-links">
+    <a href="index.html#produkte" class="btn-back btn-back-primary">
+      <svg viewBox="0 0 24 24" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <span data-i18n="back.all">Alle Produkte</span>
+    </a>
+    <a href="index.html#kontakt" class="btn-back btn-back-outline" data-i18n="back.contact">Kontakt aufnehmen</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-main" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);">
+    <div>
+      <div class="footer-logo" style="font-size:1.2rem;font-weight:800;color:white;margin-bottom:12px;">Spine<span style="color:var(--accent);">Line</span></div>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;max-width:260px;" data-i18n="footer.blurb">Ihr spezialisierter Partner für chirurgische Wirbelsäulenprodukte in Österreich. Europäische Qualität – persönliche Betreuung.</p>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;" data-i18n="footer.col.products">Produkte</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a href="zervikal.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Zervikal</a>
+        <a href="thorakolumbal.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Thorakolumbal</a>
+        <a href="lumbale-cages.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Lumbale Cages</a>
+        <a href="pediguard.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">PediGuard</a>
+        <a href="universal.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Universal</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;" data-i18n="footer.col.company">Unternehmen</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a href="index.html#ueber-uns" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;" data-i18n="footer.about">Über uns</a>
+        <a href="index.html#partner" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;" data-i18n="footer.partners">Partner</a>
+        <a href="index.html#kontakt" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;" data-i18n="footer.kontakt">Kontakt</a>
+        <a href="https://spineline.at/impressum/" target="_blank" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;" data-i18n="footer.imprint">Impressum</a>
+        <a href="https://spineline.at/datenschutzerklaerung/" target="_blank" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;" data-i18n="footer.privacy">Datenschutz</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;" data-i18n="footer.col.contact">Kontakt</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a href="tel:+43662203204" style="font-size:0.82rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+43 662 203 204</a>
+        <a href="mailto:office@spineline.at" style="font-size:0.82rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>office@spineline.at</a>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bachstraße 9<br>5023 Salzburg</span>
+        <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);" data-i18n="footer.hours">Mo–Fr 09:00–17:00</span>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:16px auto 0;display:flex;justify-content:flex-end;">
+    <div class="lang-switcher">
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width:1200px;margin:20px auto 0;font-size:0.75rem;text-align:center;color:rgba(255,255,255,0.3);" data-i18n="footer.copy">© 2024 SpineLine – Andreas Kendlbacher GmbH · Bachstraße 9, 5023 Salzburg, Österreich</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

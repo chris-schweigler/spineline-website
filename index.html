@@ -2,6 +2,11 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpineLine – Ihr Partner der Wirbelsäulenchirurgie</title>
 <style>
@@ -73,6 +78,22 @@
   }
   .nav-links .btn-contact:hover { background: var(--accent2); color: white; }
 
+  /* HAMBURGER */
+  .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; cursor: pointer; background: none; border: none; padding: 6px; border-radius: 8px; transition: background 0.2s; }
+  .nav-burger:hover { background: var(--bg-light); }
+  .nav-burger span { display: block; width: 22px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: all 0.25s; transform-origin: center; }
+  .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE MENU */
+  .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); z-index: 99; flex-direction: column; padding: 32px 6%; gap: 8px; overflow-y: auto; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { text-decoration: none; color: var(--text-dark); font-size: 1.2rem; font-weight: 600; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--accent); }
+  .mobile-menu .mobile-btn-contact { background: var(--accent); color: var(--text-dark); padding: 16px 24px; border-radius: 10px; text-align: center; margin-top: 16px; border-bottom: none; }
+  .mobile-menu .mobile-btn-contact:hover { background: var(--accent2); color: white; }
+
   /* HERO */
   .hero {
     min-height: 100vh;
@@ -82,7 +103,7 @@
   /* Full-bleed background photo */
   .hero-bg {
     position: absolute; inset: 0;
-    background: url('https://spineline.at/wp-content/uploads/2022/02/AdobeStock_287815077-scaled.jpeg') center center / cover no-repeat;
+    background: url('hero-bg.jpeg') center center / cover no-repeat;
   }
   /* Left dark panel overlay */
   .hero-bg::before {
@@ -117,9 +138,9 @@
     color: var(--accent); font-size: 0.78rem; font-weight: 700;
     padding: 7px 16px; border-radius: 20px;
     text-transform: uppercase; letter-spacing: 1.5px;
-    margin-bottom: 28px;
+    margin-bottom: 28px; white-space: nowrap;
   }
-  .hero-badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  .hero-badge span:first-child { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
   .hero h1 {
     font-size: clamp(2.4rem, 4.5vw, 3.8rem);
     font-weight: 800; color: white;
@@ -288,11 +309,12 @@
     background: white; border-radius: 14px;
     border: 1px solid var(--border);
     padding: 28px; transition: all 0.25s;
-    cursor: pointer;
+    cursor: pointer; position: relative;
+    text-decoration: none; display: block; color: inherit;
   }
   .product-card:hover {
     border-color: var(--accent); transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(26,58,92,0.1);
+    box-shadow: 0 12px 40px rgba(211,170,4,0.15);
   }
   .product-icon {
     width: 52px; height: 52px; border-radius: 12px;
@@ -392,16 +414,35 @@
   }
   .btn-submit:hover { background: var(--accent2); color: white; }
 
-  .team-title { color: white; font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; text-align: center; }
-  .team-grid {
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;
+  .team-title { color: white; font-size: 1.3rem; font-weight: 700; margin-bottom: 28px; text-align: center; }
+  .team-group-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin: 28px 0 14px;
+    padding-bottom: 8px; border-bottom: 1.5px solid rgba(211,170,4,0.4);
   }
-  .team-card {
+  .team-group { display: grid; gap: 14px; }
+  .team-group-1 { grid-template-columns: repeat(1,1fr); max-width: 300px; margin: 0 auto; }
+  .team-group-gf .team-card-new > img { height: 360px; }
+  .team-group-gf .team-name { font-size: 0.95rem; }
+  .team-group-gf .team-role { font-size: 0.78rem; }
+  .team-group-3 { grid-template-columns: repeat(3,1fr); }
+  .team-group-4 { grid-template-columns: repeat(4,1fr); }
+  .team-card-new {
     background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px; padding: 16px 10px; text-align: center;
-    transition: all 0.2s;
+    border-radius: 14px; overflow: hidden; transition: all 0.25s;
   }
-  .team-card:hover { background: rgba(255,255,255,0.13); transform: translateY(-3px); }
+  .team-card-new:hover { background: rgba(255,255,255,0.13); transform: translateY(-4px); border-color: rgba(211,170,4,0.4); }
+  .team-card-new > img {
+    width: 100%; height: 280px; object-fit: cover; object-position: top center; display: block;
+  }
+  .team-card-fallback {
+    display: none; width: 100%; height: 280px;
+    align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.12);
+    font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,0.7);
+  }
+  .team-card-body { padding: 12px 14px 14px; }
+  /* Keep old styles for fallback */
   .team-avatar {
     width: 64px; height: 64px; border-radius: 50%;
     background: rgba(255,255,255,0.15);
@@ -411,9 +452,12 @@
     overflow: hidden;
   }
   .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .team-name { font-size: 0.8rem; font-weight: 600; color: white; line-height: 1.3; }
-  .team-role { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 3px; }
-  .team-phone { font-size: 0.7rem; color: var(--accent); margin-top: 4px; }
+  .team-name { font-size: 0.82rem; font-weight: 600; color: white; line-height: 1.3; margin: 0 0 3px; }
+  .team-role { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin: 0 0 5px; }
+  .team-phone { font-size: 0.72rem; color: var(--accent); margin: 0; }
+  .team-email { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 900px) { .team-group-3 { grid-template-columns: repeat(2,1fr); } .team-group-4 { grid-template-columns: repeat(2,1fr); } .team-group-1 { max-width: 260px; } }
+  @media (max-width: 600px) { .team-group-3, .team-group-4 { grid-template-columns: repeat(2,1fr); } .team-group-1 { max-width: 220px; } }
 
   /* FOOTER */
   footer {
@@ -449,12 +493,33 @@
     .about-badge { right: 10px; bottom: -10px; }
   }
   @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
     .products-grid, .team-grid { grid-template-columns: 1fr 1fr; }
     .partners-grid { grid-template-columns: 1fr 1fr; }
-    .nav-links { display: none; }
     .form-row { grid-template-columns: 1fr; }
     .trustbar { gap: 20px; }
+    .hero-content { padding: 100px 5% 40px; }
+    .hero h1 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+    .hero-stats-row { flex-wrap: wrap; }
+    .hero-stat-item { flex: 0 0 45%; border-right: none; margin-right: 0; padding-right: 0; padding-bottom: 16px; }
+    .hero-cta { flex-direction: column; }
+    .hero-cta a { text-align: center; }
+    .section-title { font-size: clamp(1.4rem, 6vw, 1.8rem); }
   }
+  @media (max-width: 420px) {
+    .hero-stat-item { flex: 0 0 100%; }
+    .products-grid { grid-template-columns: 1fr; }
+  }
+
+  /* LANG SWITCHER (nav — light bg) */
+  .lang-switcher-nav {
+    background: var(--bg-light) !important;
+    border-color: var(--border) !important;
+  }
+  .lang-switcher-nav .lang-btn { color: var(--text-light) !important; }
+  .lang-switcher-nav .lang-btn.active { background: var(--accent) !important; color: var(--text-dark) !important; }
+  .lang-switcher-nav .lang-btn:hover { color: var(--text-dark) !important; }
 </style>
 </head>
 <body>
@@ -463,20 +528,41 @@
 <nav>
   <a href="#" class="nav-logo">
     <div class="nav-logo-mark">
-      <img src="https://spineline.at/wp-content/uploads/2022/01/spineline_logo.jpg" alt="SpineLine Logo">
+      <img src="logo.jpg" alt="SpineLine Logo">
     </div>
     <div>
       <span class="nav-logo-text">SpineLine</span>
-      <span class="nav-logo-sub">Wirbelsäulenchirurgie</span>
+      <span class="nav-logo-sub" data-i18n="index.nav.sub">Wirbelsäulenchirurgie</span>
     </div>
   </a>
   <div class="nav-links">
-    <a href="#ueber-uns">Über uns</a>
-    <a href="#produkte">Produkte</a>
-    <a href="#partner">Partner</a>
-    <a href="#kontakt" class="btn-contact">Kontakt</a>
+    <a href="#ueber-uns" data-i18n="index.nav.about"><span data-i18n="index.footer.about">Über uns</span></a>
+    <a href="#produkte" data-i18n="index.nav.products">Produkte</a>
+    <a href="#partner" data-i18n="index.nav.partners">Partner</a>
+    <a href="#team" data-i18n="index.nav.team">Team</a>
+    <a href="#kontakt" class="btn-contact" data-i18n="index.nav.contact">Kontakt</a>
+    <div class="lang-switcher lang-switcher-nav" style="margin-left:12px;">
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
   </div>
+  <button class="nav-burger" id="navBurger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#ueber-uns" data-i18n="index.nav.about">Über uns</a>
+  <a href="#produkte" data-i18n="index.nav.products">Produkte</a>
+  <a href="#partner" data-i18n="index.nav.partners">Partner</a>
+  <a href="#team" data-i18n="index.nav.team">Team</a>
+  <a href="#kontakt" class="mobile-btn-contact" data-i18n="index.nav.contact">Kontakt</a>
+  <div class="lang-switcher" style="margin-top:16px;align-self:flex-start;">
+    <button class="lang-btn" id="btn-de-m" onclick="setLang('de')">DE</button>
+    <button class="lang-btn" id="btn-en-m" onclick="setLang('en')">EN</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -486,39 +572,39 @@
       <div>
         <div class="hero-badge">
           <span></span>
-          Österreichischer Vertriebsspezialist · Salzburg
+          <span data-i18n="index.hero.badge">Österreichischer Vertriebsspezialist · Salzburg</span>
         </div>
         <h1>Ihr Partner der<br><em>Wirbelsäulenchirurgie</em></h1>
-        <p>Über 20 Jahre Erfahrung. Europäische Qualitätsimplantate aus Deutschland, Frankreich und Italien. Kompetente Begleitung – von der Planung bis in den OP-Saal.</p>
+        <p data-i18n="index.hero.p">Über 25 Jahre Erfahrung. Europäische Qualitätsimplantate aus Deutschland, Frankreich und Italien. Kompetente Begleitung – von der Planung bis in den OP-Saal.</p>
         <div class="hero-cta">
-          <a href="#kontakt" class="btn-primary">Jetzt Kontakt aufnehmen</a>
-          <a href="#produkte" class="btn-outline">Produkte ansehen</a>
+          <a href="#kontakt" class="btn-primary" data-i18n="index.hero.cta.primary">Jetzt Kontakt aufnehmen</a>
+          <a href="#produkte" class="btn-outline" data-i18n="index.hero.cta.outline">Produkte ansehen</a>
         </div>
         <div class="hero-stats-row">
           <div class="hero-stat-item">
-            <div class="hero-stat-num">20+</div>
-            <div class="hero-stat-desc">Jahre operative Erfahrung</div>
+            <div class="hero-stat-num">25+</div>
+            <div class="hero-stat-desc" data-i18n="index.hero.stat1">Jahre operative Erfahrung</div>
           </div>
           <div class="hero-stat-item">
             <div class="hero-stat-num">8</div>
-            <div class="hero-stat-desc">Herstellerpartner europaweit</div>
+            <div class="hero-stat-desc" data-i18n="index.hero.stat2">Herstellerpartner europaweit</div>
           </div>
           <div class="hero-stat-item">
             <div class="hero-stat-num">100%</div>
-            <div class="hero-stat-desc">Europäische Implantate</div>
+            <div class="hero-stat-desc" data-i18n="index.hero.stat3">Europäische Implantate</div>
           </div>
         </div>
       </div>
       <div class="hero-visual">
         <div class="hero-card">
-          <div class="hero-card-title">Unsere Stärken</div>
+          <div class="hero-card-title" data-i18n="index.hero.card.title">Unsere Stärken</div>
           <div class="hero-stat">
             <div class="hero-stat-icon">
               <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div>
-              <div class="hero-stat-value">EU-Qualität</div>
-              <div class="hero-stat-label">Nur europäische Implantate</div>
+              <div class="hero-stat-value" data-i18n="index.hero.card.q1.val">EU-Qualität</div>
+              <div class="hero-stat-label" data-i18n="index.hero.card.q1.lbl">Nur europäische Implantate</div>
             </div>
           </div>
           <div class="hero-stat">
@@ -526,8 +612,8 @@
               <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div>
-              <div class="hero-stat-value">Schnell</div>
-              <div class="hero-stat-label">Kurze Lieferzeiten aus Salzburg</div>
+              <div class="hero-stat-value" data-i18n="index.hero.card.q2.val">Schnell</div>
+              <div class="hero-stat-label" data-i18n="index.hero.card.q2.lbl">Kurze Lieferzeiten aus Salzburg</div>
             </div>
           </div>
           <div class="hero-stat">
@@ -535,8 +621,8 @@
               <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div>
-              <div class="hero-stat-value">OP-Support</div>
-              <div class="hero-stat-label">Begleitung & Schulung vor Ort</div>
+              <div class="hero-stat-value" data-i18n="index.hero.card.q3.val">OP-Support</div>
+              <div class="hero-stat-label" data-i18n="index.hero.card.q3.lbl">Begleitung & Schulung vor Ort</div>
             </div>
           </div>
           <div class="hero-stat">
@@ -544,8 +630,8 @@
               <svg viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
             </div>
             <div>
-              <div class="hero-stat-value">Planung</div>
-              <div class="hero-stat-label">Individuelle OP-Planung</div>
+              <div class="hero-stat-value" data-i18n="index.hero.card.q4.val">Planung</div>
+              <div class="hero-stat-label" data-i18n="index.hero.card.q4.lbl">Individuelle OP-Planung</div>
             </div>
           </div>
         </div>
@@ -558,19 +644,19 @@
 <div class="trustbar">
   <div class="trustbar-item">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    <span>Ausschließlich europäische Implantate</span>
+    <span data-i18n="index.trust.1">Ausschließlich europäische Implantate</span>
   </div>
   <div class="trustbar-item">
     <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    <span>Schnelle Lieferung & Verfügbarkeit</span>
+    <span data-i18n="index.trust.2">Schnelle Lieferung & Verfügbarkeit</span>
   </div>
   <div class="trustbar-item">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Hauptlager in Salzburg</span>
+    <span data-i18n="index.trust.3">Hauptlager in Salzburg</span>
   </div>
   <div class="trustbar-item">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    <span>OP-Begleitung & Schulungen</span>
+    <span data-i18n="index.trust.4">OP-Begleitung & Schulungen</span>
   </div>
 </div>
 
@@ -580,25 +666,25 @@
     <div class="about-grid fade-in">
       <div class="about-image-wrap">
         <div class="about-img-placeholder">
-          <img src="https://spineline.at/wp-content/uploads/2022/04/Michi_andi_v2.jpg" alt="Andreas und Michaela Kendlbacher" onerror="this.style.display='none'">
+          <img src="team-group.jpg" alt="SpineLine Team" onerror="this.style.display='none'">
         </div>
         <div class="about-badge">
-          <div class="about-badge-num">20+</div>
-          <div class="about-badge-label">Jahre Expertise</div>
+          <div class="about-badge-num">25+</div>
+          <div class="about-badge-label" data-i18n="index.about.badge">Jahre Expertise</div>
         </div>
       </div>
       <div>
-        <span class="section-tag">Über uns</span>
-        <h2 class="section-title">Vertrauen, Verlässlichkeit,<br>Kompetenz und Erfahrung</h2>
-        <p class="section-sub">Wir sind ein österreichisches Unternehmen mit Sitz in Salzburg, spezialisiert auf den Vertrieb chirurgischer Wirbelsäulenprodukte.</p>
+        <span class="section-tag" data-i18n="index.about.tag">Über uns</span>
+        <h2 class="section-title" data-i18n-html="index.about.h2">Vertrauen, Verlässlichkeit,<br>Kompetenz und Erfahrung</h2>
+        <p class="section-sub" data-i18n="index.about.p">Wir sind ein österreichisches Unternehmen mit Sitz in Salzburg, spezialisiert auf den Vertrieb chirurgischer Wirbelsäulenprodukte.</p>
         <div class="about-features">
           <div class="about-feature">
             <div class="about-feature-icon">
               <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             </div>
             <div>
-              <div class="about-feature-title">Über 20 Jahre operative Erfahrung</div>
-              <div class="about-feature-desc">Gründer Andreas Kendlbacher bringt tiefes Wissen aus der Wirbelsäulenchirurgie direkt in den Vertrieb.</div>
+              <div class="about-feature-title" data-i18n="index.about.f1.title">Über 25 Jahre operative Erfahrung</div>
+              <div class="about-feature-desc" data-i18n="index.about.f1.desc">Gründer Andreas Kendlbacher bringt tiefes Wissen aus der Wirbelsäulenchirurgie direkt in den Vertrieb.</div>
             </div>
           </div>
           <div class="about-feature">
@@ -606,8 +692,8 @@
               <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <div>
-              <div class="about-feature-title">Ausschließlich europäische Implantate</div>
-              <div class="about-feature-desc">Hochwertige Produkte aus Deutschland, Frankreich und Italien – keine Kompromisse bei Qualität.</div>
+              <div class="about-feature-title" data-i18n="index.about.f2.title">Ausschließlich europäische Implantate</div>
+              <div class="about-feature-desc" data-i18n="index.about.f2.desc">Hochwertige Produkte aus Deutschland, Frankreich und Italien – keine Kompromisse bei Qualität.</div>
             </div>
           </div>
           <div class="about-feature">
@@ -615,8 +701,8 @@
               <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
             </div>
             <div>
-              <div class="about-feature-title">OP-Begleitung & Operationsplanung</div>
-              <div class="about-feature-desc">Persönliche Betreuung des gesamten OP-Personals – vor, während und nach dem Eingriff.</div>
+              <div class="about-feature-title" data-i18n="index.about.f3.title">OP-Begleitung & Operationsplanung</div>
+              <div class="about-feature-desc" data-i18n="index.about.f3.desc">Persönliche Betreuung des gesamten OP-Personals – vor, während und nach dem Eingriff.</div>
             </div>
           </div>
         </div>
@@ -628,105 +714,105 @@
 <!-- PRODUKTE -->
 <section id="produkte" class="products-bg">
   <div class="section-inner">
-    <span class="section-tag">Produktportfolio</span>
-    <h2 class="section-title">Unser Sortiment</h2>
-    <p class="section-sub">Spezialisierte chirurgische Implantate und Systeme für alle Bereiche der Wirbelsäulenchirurgie.</p>
+    <span class="section-tag" data-i18n="index.products.tag">Produktportfolio</span>
+    <h2 class="section-title" data-i18n="index.products.h2">Unser Sortiment</h2>
+    <p class="section-sub" data-i18n="index.products.p">Spezialisierte chirurgische Implantate und Systeme für alle Bereiche der Wirbelsäulenchirurgie.</p>
     <div class="products-grid">
 
-      <div class="product-card fade-in">
+      <a href="zervikal.html" class="product-card fade-in">
         <div class="product-icon">
           <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="8" y="2" width="8" height="4" rx="1"/><rect x="8" y="10" width="8" height="4" rx="1"/><rect x="8" y="18" width="8" height="4" rx="1"/><line x1="12" y1="6" x2="12" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/></svg>
         </div>
-        <div class="product-title">Zervikal</div>
+        <div class="product-title" data-i18n="index.zervikal.title">Zervikal</div>
         <ul class="product-items">
-          <li>Zervikales Plattensystem</li>
-          <li>Stab/Schraubsystem</li>
-          <li>Zervikale Cages</li>
-          <li>Wirbelkörperersatz</li>
+          <li data-i18n="index.zervikal.i1">Zervikales Plattensystem</li>
+          <li data-i18n="index.zervikal.i2">Stab/Schraubsystem</li>
+          <li data-i18n="index.zervikal.i3">Zervikale Cages</li>
+          <li data-i18n="index.zervikal.i4">Wirbelkörperersatz</li>
         </ul>
-        <a href="https://spineline.at/zervikal/" class="product-link" target="_blank">
+        <span class="product-link" data-i18n="index.products.link">
           Produktbroschüren
           <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
-      <div class="product-card fade-in">
+      <a href="thorakolumbal.html" class="product-card fade-in">
         <div class="product-icon">
           <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 2v20M8 6c0 0 4-2 8 0M8 12c0 0 4-2 8 0M8 18c0 0 4-2 8 0"/></svg>
         </div>
-        <div class="product-title">Thorakolumbal</div>
+        <div class="product-title" data-i18n="index.thorako.title">Thorakolumbal</div>
         <ul class="product-items">
-          <li>Stab/Schraubsysteme</li>
-          <li>Dynamische Stabilisierung</li>
-          <li>Wirbelkörperersatz</li>
+          <li data-i18n="index.thorako.i1">Stab/Schraubsysteme</li>
+          <li data-i18n="index.thorako.i2">Dynamische Stabilisierung</li>
+          <li data-i18n="index.thorako.i3">Wirbelkörperersatz</li>
         </ul>
-        <a href="https://spineline.at/thorakolumbal/" class="product-link" target="_blank">
+        <span class="product-link" data-i18n="index.products.link">
           Produktbroschüren
           <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
-      <div class="product-card fade-in">
+      <a href="lumbale-cages.html" class="product-card fade-in">
         <div class="product-icon">
           <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="7" y="6" width="10" height="12" rx="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
         </div>
-        <div class="product-title">Lumbale Cages</div>
+        <div class="product-title" data-i18n="index.cages.title">Lumbale Cages</div>
         <ul class="product-items">
           <li>PLIF</li>
           <li>TLIF</li>
           <li>LLIF</li>
           <li>ALIF</li>
         </ul>
-        <a href="https://spineline.at/lumbale-cages/" class="product-link" target="_blank">
+        <span class="product-link" data-i18n="index.products.link">
           Produktbroschüren
           <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
-      <div class="product-card fade-in">
+      <a href="pediguard.html" class="product-card fade-in">
         <div class="product-icon">
           <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </div>
         <div class="product-title">PediGuard</div>
         <ul class="product-items">
-          <li>Navigation in Ihrer Hand</li>
-          <li>DSG™-Technologie</li>
-          <li>Echtzeit-Feedback</li>
+          <li data-i18n="index.pediguard.i1">Navigation in Ihrer Hand</li>
+          <li data-i18n="index.pediguard.i2">DSG™-Technologie</li>
+          <li data-i18n="index.pediguard.i3">Echtzeit-Feedback</li>
         </ul>
-        <a href="https://spineline.at/pediguard-spineline/" class="product-link" target="_blank">
+        <span class="product-link" data-i18n="index.products.link">
           Produktbroschüren
           <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
-      <div class="product-card fade-in">
+      <a href="universal.html" class="product-card fade-in">
         <div class="product-icon">
           <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22V12m0-10v10M6 12H2m20 0h-4M6.34 17.66L4.22 19.78M19.78 4.22l-2.12 2.12M17.66 17.66l2.12 2.12M4.22 4.22l2.12 2.12"/></svg>
         </div>
-        <div class="product-title">Universal</div>
+        <div class="product-title" data-i18n="index.universal.title">Universal</div>
         <ul class="product-items">
-          <li>Kyphoplastie</li>
-          <li>Vertebroplastie</li>
-          <li>Zement & Knochenersatz</li>
-          <li>Redonspieße</li>
+          <li data-i18n="index.universal.i1">Kyphoplastie</li>
+          <li data-i18n="index.universal.i2">Vertebroplastie</li>
+          <li data-i18n="index.universal.i3">Zement & Knochenersatz</li>
+          <li data-i18n="index.universal.i4">Redonspieße</li>
         </ul>
-        <a href="https://spineline.at/universal/" class="product-link" target="_blank">
+        <span class="product-link" data-i18n="index.products.link">
           Produktbroschüren
           <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
-      <div class="product-card fade-in" style="border: 1.5px dashed var(--border); background: var(--bg-light);">
+      <a href="#kontakt" class="product-card fade-in" style="border: 1.5px dashed var(--border); background: var(--bg-light);">
         <div class="product-icon" style="background: var(--bg-light); border: 1.5px solid var(--border);">
           <svg viewBox="0 0 24 24" stroke-width="1.8" style="stroke: var(--text-light);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
         </div>
-        <div class="product-title" style="color: var(--text-light);">Weitere Produkte</div>
-        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 8px;">Kontaktieren Sie uns für spezifische Anfragen zu weiteren Produkten und Sonderlösungen.</p>
-        <a href="#kontakt" class="product-link">
-          Anfrage stellen
+        <div class="product-title" style="color: var(--text-light);" data-i18n="index.more.title">Weitere Produkte</div>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 8px;" data-i18n="index.more.p">Kontaktieren Sie uns für spezifische Anfragen zu weiteren Produkten und Sonderlösungen.</p>
+        <span class="product-link">
+          <span data-i18n="index.more.link">Anfrage stellen</span>
           <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
     </div>
   </div>
@@ -736,34 +822,34 @@
 <section id="partner">
   <div class="section-inner">
     <div class="partners-intro fade-in">
-      <span class="section-tag">Unsere Partner</span>
-      <h2 class="section-title">Führende Hersteller,<br>vereint bei SpineLine</h2>
-      <p class="section-sub">Wir arbeiten ausschließlich mit renommierten europäischen Herstellern zusammen, um höchste Qualität zu gewährleisten.</p>
+      <span class="section-tag" data-i18n="index.partners.tag">Unsere Partner</span>
+      <h2 class="section-title" data-i18n-html="index.partners.h2">Führende Hersteller,<br>vereint bei SpineLine</h2>
+      <p class="section-sub" data-i18n="index.partners.p">Wir arbeiten ausschließlich mit renommierten europäischen Herstellern zusammen, um höchste Qualität zu gewährleisten.</p>
     </div>
     <div class="partners-grid fade-in">
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2025/04/CHM.png" alt="ChM" onerror="this.outerHTML='<span class=\'partner-name\'>ChM</span>'">
+        <img src="partner-chm.png" alt="ChM" onerror="this.outerHTML='<span class=\'partner-name\'>ChM</span>'">
       </div>
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2022/02/Logo_G21.jpg" alt="G21" onerror="this.outerHTML='<span class=\'partner-name\'>G21</span>'">
+        <img src="partner-g21.jpg" alt="G21" onerror="this.outerHTML='<span class=\'partner-name\'>G21</span>'">
       </div>
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2025/01/1-NORA-LogoQuadri-1.2-PDF.png" alt="NORAKER" onerror="this.outerHTML='<span class=\'partner-name\'>NORAKER</span>'">
+        <img src="partner-noraker.png" alt="NORAKER" onerror="this.outerHTML='<span class=\'partner-name\'>NORAKER</span>'">
       </div>
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2025/01/normmed-logo-vektoerel2.png" alt="normmed" onerror="this.outerHTML='<span class=\'partner-name\'>normmed</span>'">
+        <img src="partner-normmed.png" alt="normmed" onerror="this.outerHTML='<span class=\'partner-name\'>normmed</span>'">
       </div>
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2022/02/Logo_NovaSpine.jpg" alt="NovaSpine" onerror="this.outerHTML='<span class=\'partner-name\'>NovaSpine</span>'">
+        <img src="partner-novaspine.jpg" alt="NovaSpine" onerror="this.outerHTML='<span class=\'partner-name\'>NovaSpine</span>'">
       </div>
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2024/02/SpineGuard.png" alt="SpineGuard" onerror="this.outerHTML='<span class=\'partner-name\'>SpineGuard</span>'">
+        <img src="partner-spineguard.png" alt="SpineGuard" onerror="this.outerHTML='<span class=\'partner-name\'>SpineGuard</span>'">
       </div>
       <div class="partner-card">
-        <img src="https://spineline.at/wp-content/uploads/2023/02/Logo-ulrich-medical.jpg" alt="ulrich medical" onerror="this.outerHTML='<span class=\'partner-name\'>ulrich medical</span>'">
+        <img src="partner-ulrich.jpg" alt="ulrich medical" onerror="this.outerHTML='<span class=\'partner-name\'>ulrich medical</span>'">
       </div>
       <div class="partner-card" style="border: 1.5px dashed var(--border); background: var(--bg-light);">
-        <span class="partner-name" style="color: var(--text-light); font-size: 0.8rem;">+ weitere Partner</span>
+        <span class="partner-name" style="color: var(--text-light); font-size: 0.8rem;" data-i18n="index.partners.more">+ weitere Partner</span>
       </div>
     </div>
   </div>
@@ -773,20 +859,20 @@
 <section id="kontakt" class="contact-bg">
   <div class="section-inner">
     <div class="contact-header">
-      <span class="section-tag">Kontakt</span>
-      <h2 class="section-title">So können Sie uns erreichen</h2>
-      <p class="section-sub">Wir freuen uns auf Ihre Anfrage – telefonisch, per E-Mail oder direkt über unser Kontaktformular.</p>
+      <span class="section-tag" data-i18n="index.contact.tag">Kontakt</span>
+      <h2 class="section-title" data-i18n="index.contact.h2">So können Sie uns erreichen</h2>
+      <p class="section-sub" data-i18n="index.contact.p">Wir freuen uns auf Ihre Anfrage – telefonisch, per E-Mail oder direkt über unser Kontaktformular.</p>
     </div>
 
     <div class="contact-top fade-in">
       <div class="contact-info-card">
-        <div class="contact-info-title">Kontaktinformationen</div>
+        <div class="contact-info-title" data-i18n="index.contact.info.title">Kontaktinformationen</div>
         <div class="contact-info-item">
           <div class="contact-info-icon">
             <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           </div>
           <div>
-            <div class="contact-info-label">Telefon</div>
+            <div class="contact-info-label" data-i18n="index.contact.phone.lbl">Telefon</div>
             <div class="contact-info-value"><a href="tel:+43662203204">+43 662 203 204</a></div>
           </div>
         </div>
@@ -795,7 +881,7 @@
             <svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <div>
-            <div class="contact-info-label">E-Mail</div>
+            <div class="contact-info-label" data-i18n="index.contact.email.lbl">E-Mail</div>
             <div class="contact-info-value"><a href="mailto:office@spineline.at">office@spineline.at</a></div>
           </div>
         </div>
@@ -804,7 +890,7 @@
             <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div>
-            <div class="contact-info-label">Adresse</div>
+            <div class="contact-info-label" data-i18n="index.contact.addr.lbl">Adresse</div>
             <div class="contact-info-value">Bachstraße 9, 5023 Salzburg</div>
           </div>
         </div>
@@ -813,91 +899,136 @@
             <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
           <div>
-            <div class="contact-info-label">Bürozeiten</div>
-            <div class="contact-info-value">Mo – Fr, 09:00 – 17:00 Uhr</div>
+            <div class="contact-info-label" data-i18n="index.contact.hours.lbl">Bürozeiten</div>
+            <div class="contact-info-value" data-i18n="index.contact.hours.val">Mo – Fr, 09:00 – 17:00 Uhr</div>
           </div>
         </div>
       </div>
 
       <div class="contact-form-card">
-        <div class="contact-form-title">Nachricht senden</div>
+        <div class="contact-form-title" data-i18n="index.form.title">Nachricht senden</div>
         <div class="form-row">
           <div class="form-group">
-            <label>Vorname</label>
-            <input type="text" placeholder="Max">
+            <label data-i18n="index.form.firstname">Vorname</label>
+            <input type="text" data-i18n-placeholder="index.form.ph.firstname" placeholder="Max">
           </div>
           <div class="form-group">
-            <label>Nachname</label>
-            <input type="text" placeholder="Mustermann">
+            <label data-i18n="index.form.lastname">Nachname</label>
+            <input type="text" data-i18n-placeholder="index.form.ph.lastname" placeholder="Mustermann">
           </div>
         </div>
         <div class="form-group">
-          <label>E-Mail</label>
-          <input type="email" placeholder="max@klinik.at">
+          <label data-i18n="index.form.email">E-Mail</label>
+          <input type="email" data-i18n-placeholder="index.form.ph.email" placeholder="max@klinik.at">
         </div>
         <div class="form-group">
-          <label>Betreff</label>
-          <input type="text" placeholder="Produktanfrage / OP-Begleitung">
+          <label data-i18n="index.form.subject">Betreff</label>
+          <input type="text" data-i18n-placeholder="index.form.ph.subject" placeholder="Produktanfrage / OP-Begleitung">
         </div>
         <div class="form-group">
-          <label>Nachricht</label>
-          <textarea placeholder="Ihre Nachricht..."></textarea>
+          <label data-i18n="index.form.message">Nachricht</label>
+          <textarea data-i18n-placeholder="index.form.ph.message" placeholder="Ihre Nachricht..."></textarea>
         </div>
-        <button class="btn-submit">Nachricht senden</button>
+        <button class="btn-submit" data-i18n="index.form.submit">Nachricht senden</button>
       </div>
     </div>
 
     <!-- TEAM -->
-    <div class="fade-in">
-      <div class="team-title">Unser Team</div>
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="https://spineline.at/wp-content/uploads/2022/04/Andi-1.jpg" alt="Andreas Kendlbacher" onerror="this.outerHTML='AK'">
+    <div class="fade-in" id="team">
+      <div class="team-title" data-i18n="index.team.title">Unser Team</div>
+
+      <!-- Geschäftsführung -->
+      <div class="team-group-label" data-i18n="index.team.gf">Geschäftsführung</div>
+      <div class="team-group team-group-1 team-group-gf">
+        <div class="team-card-new">
+          <img src="team-andreas.jpg" alt="Andreas Kendlbacher" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">AK</div>
+          <div class="team-card-body">
+            <div class="team-name">Andreas Kendlbacher</div>
+            <div class="team-role" data-i18n="index.team.role.gf">Geschäftsführer / Eigentümer</div>
+            <div class="team-phone">+43 664 400 65 31</div>
+            <div class="team-email">a.kendlbacher@spineline.at</div>
           </div>
-          <div class="team-name">Andreas Kendlbacher</div>
-          <div class="team-role">Geschäftsführer</div>
-          <div class="team-phone">+43 664 400 65 31</div>
         </div>
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="https://spineline.at/wp-content/uploads/2022/04/Michi_2.jpg" alt="Michaela Kendlbacher" onerror="this.outerHTML='MK'">
+      </div>
+
+      <!-- Außendienst -->
+      <div class="team-group-label" data-i18n="index.team.ops">Produktspezialist OP Support</div>
+      <div class="team-group team-group-4">
+        <div class="team-card-new">
+          <img src="team-andrea.jpg" alt="Andrea Leidinger" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">AL</div>
+          <div class="team-card-body">
+            <div class="team-name">Andrea Leidinger</div>
+            <div class="team-role" data-i18n="index.team.role.ops.f">Produktspezialistin OP Support</div>
+            <div class="team-phone">+43 664 347 86 65</div>
+            <div class="team-email">a.leidinger@spineline.at</div>
           </div>
-          <div class="team-name">Mag. (FH) Michaela Kendlbacher</div>
-          <div class="team-role">Office Management</div>
-          <div class="team-phone">+43 662 203 204-10</div>
         </div>
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="https://spineline.at/wp-content/uploads/2025/08/IMG_0481-e1756493490966.jpg" alt="Andrea Leidinger" onerror="this.outerHTML='AL'">
+        <div class="team-card-new">
+          <img src="team-dragica.jpg" alt="Dragica Vukoman" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">DV</div>
+          <div class="team-card-body">
+            <div class="team-name">Dragica Vukoman</div>
+            <div class="team-role" data-i18n="index.team.role.ops.f">Produktspezialistin OP Support</div>
+            <div class="team-phone">+43 664 123 64 81</div>
+            <div class="team-email">d.vukoman@spineline.at</div>
           </div>
-          <div class="team-name">Andrea Leidinger</div>
-          <div class="team-role">Produktspezialistin OP Support</div>
-          <div class="team-phone">+43 664 347 86 65</div>
         </div>
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="https://spineline.at/wp-content/uploads/2023/11/Foto-D.-Vukoman.jpg" alt="Dragica Vukoman" onerror="this.outerHTML='DV'">
+        <div class="team-card-new">
+          <img src="team-horst.jpg" alt="Horst Teferle" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">HT</div>
+          <div class="team-card-body">
+            <div class="team-name">Horst Teferle</div>
+            <div class="team-role" data-i18n="index.team.role.ops.m">Produktspezialist OP Support</div>
+            <div class="team-phone">+43 662 203 204</div>
+            <div class="team-email">h.teferle@spineline.at</div>
           </div>
-          <div class="team-name">Dragica Vukoman</div>
-          <div class="team-role">Produktspezialistin OP Support</div>
-          <div class="team-phone">+43 664 123 64 81</div>
         </div>
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="https://spineline.at/wp-content/uploads/2023/11/Foto-A.-Jazbinsek.jpg" alt="Alex Jazbinsek" onerror="this.outerHTML='AJ'">
+        <div class="team-card-new">
+          <img src="team-gerhard.jpg" alt="DI Gerhard Schaufler" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">GS</div>
+          <div class="team-card-body">
+            <div class="team-name">DI Gerhard Schaufler</div>
+            <div class="team-role" data-i18n="index.team.role.ops.m">Produktspezialist OP Support</div>
+            <div class="team-phone">+43 664 507 68 38</div>
+            <div class="team-email">g.schaufler@spineline.at</div>
           </div>
-          <div class="team-name">Alex Jazbinsek</div>
-          <div class="team-role">Office</div>
-          <div class="team-phone">+43 662 203 204-11</div>
         </div>
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="https://spineline.at/wp-content/uploads/2025/09/Dusan-Spasic-011-scaled.jpeg" alt="Dušan Spasić" onerror="this.outerHTML='DŠ'">
+      </div>
+
+      <!-- Office -->
+      <div class="team-group-label" data-i18n="index.team.office">Office</div>
+      <div class="team-group team-group-3">
+        <div class="team-card-new">
+          <img src="team-michaela.jpg" alt="Mag. (FH) Michaela Kendlbacher" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">MK</div>
+          <div class="team-card-body">
+            <div class="team-name">Mag. (FH) Michaela Kendlbacher</div>
+            <div class="team-role" data-i18n="index.team.role.office.mgmt">Office Management</div>
+            <div class="team-phone">+43 662 203 204-10</div>
+            <div class="team-email">m.kendlbacher@spineline.at</div>
           </div>
-          <div class="team-name">Dušan Spasić</div>
-          <div class="team-role">Office</div>
-          <div class="team-phone">+43 664 203 204-12</div>
+        </div>
+        <div class="team-card-new">
+          <img src="team-alex.jpg" alt="Alex Jazbinsek" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">AJ</div>
+          <div class="team-card-body">
+            <div class="team-name">Alex Jazbinsek</div>
+            <div class="team-role" data-i18n="index.team.role.office">Office</div>
+            <div class="team-phone">+43 662 203 204-11</div>
+            <div class="team-email">office@spineline.at</div>
+          </div>
+        </div>
+        <div class="team-card-new">
+          <img src="team-dusan.jpg" alt="Dušan Spasić" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-card-fallback">DŠ</div>
+          <div class="team-card-body">
+            <div class="team-name">Dušan Spasić</div>
+            <div class="team-role" data-i18n="index.team.role.office">Office</div>
+            <div class="team-phone">+43 664 203 204-12</div>
+            <div class="team-email">office@spineline.at</div>
+          </div>
         </div>
       </div>
     </div>
@@ -906,21 +1037,63 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Spine<span>Line</span> &nbsp;·&nbsp; <span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.4);">Wirbelsäulenchirurgie</span></div>
-    <div class="footer-links">
-      <a href="#ueber-uns">Über uns</a>
-      <a href="#produkte">Produkte</a>
-      <a href="#partner">Partner</a>
-      <a href="#kontakt">Kontakt</a>
-      <a href="https://spineline.at/impressum/" target="_blank">Impressum</a>
-      <a href="https://spineline.at/datenschutzerklaerung/" target="_blank">Datenschutz</a>
+  <div class="footer-main" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);">
+    <div>
+      <div style="font-size:1.2rem;font-weight:800;color:white;margin-bottom:12px;">Spine<span style="color:var(--accent);">Line</span></div>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;max-width:260px;"><span data-i18n="index.footer.blurb">Ihr spezialisierter Partner für chirurgische Wirbelsäulenprodukte in Österreich. Europäische Qualität – persönliche Betreuung.</span></p>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;"><span data-i18n="index.footer.products">Produkte</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a href="zervikal.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Zervikal</a>
+        <a href="thorakolumbal.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Thorakolumbal</a>
+        <a href="lumbale-cages.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Lumbale Cages</a>
+        <a href="pediguard.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">PediGuard</a>
+        <a href="universal.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Universal</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;"><span data-i18n="index.footer.company">Unternehmen</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a href="#ueber-uns" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Über uns</a>
+        <a href="#partner" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Partner</a>
+        <a href="#kontakt" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;">Kontakt</a>
+        <a href="https://spineline.at/impressum/" target="_blank" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;"><span data-i18n="index.footer.imprint">Impressum</span></a>
+        <a href="https://spineline.at/datenschutzerklaerung/" target="_blank" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;"><span data-i18n="index.footer.privacy">Datenschutz</span></a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;"><span data-i18n="index.footer.contact">Kontakt</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a href="tel:+43662203204" style="font-size:0.82rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+43 662 203 204</a>
+        <a href="mailto:office@spineline.at" style="font-size:0.82rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>office@spineline.at</a>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bachstraße 9<br>5023 Salzburg</span>
+        <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);"><span data-i18n="index.footer.hours">Mo–Fr 09:00–17:00</span></span>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">© 2024 SpineLine – Andreas Kendlbacher · Bachstraße 9, 5023 Salzburg, Österreich</div>
+  <div class="footer-bottom" data-i18n="index.footer.copy">© 2024 SpineLine – Andreas Kendlbacher GmbH · Bachstraße 9, 5023 Salzburg, Österreich</div>
 </footer>
 
+<script src="i18n.js"></script>
 <script>
+  // Hamburger menu
+  const burger = document.getElementById('navBurger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -934,6 +1107,22 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Sync mobile lang buttons
+  const _origSetLang = window.setLang;
+  window.setLang = function(lang) {
+    _origSetLang(lang);
+    // sync mobile duplicates
+    ['btn-de-m','btn-en-m'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('active', (id === 'btn-' + lang + '-m'));
+    });
+    // sync nav duplicates
+    ['btn-de','btn-en'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('active', (id === 'btn-' + lang));
+    });
+  };
 </script>
 </body>
 </html>
